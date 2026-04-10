@@ -10,7 +10,7 @@ import ModeSelector from "./ModeSelector";
 import AdvancedResults from "./AdvancedResults";
 import PDFDownload from "./PDFDownload";
 import ResultCard from "./ResultCard";
-
+const API_URL = import.meta.env.VITE_API_URL;
 export default function Project() {
   const [dragActive, setDragActive] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -65,7 +65,7 @@ export default function Project() {
 
     try {
       const res = await fetch(
-        `http://127.0.0.1:8000/predict?model=${selectedModel}`,
+        `${API_URL}/predict?model=${selectedModel}`,
         {
           method: "POST",
           body: formData,

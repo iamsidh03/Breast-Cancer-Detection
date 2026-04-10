@@ -6,7 +6,10 @@ import UploadBox from "./UploadBox";
 import ResultCard from "./ResultCard";
 import AdvancedResults from "./AdvancedResults";
 import PDFDownload from "./PDFDownload";
-
+// const API_URL = import.meta.env.VITE_API_URL ||"http://127.0.0.1:8000" ;
+const API_URL = import.meta.env.VITE_API_URL;
+console.log("ENV:", import.meta.env);
+console.log("API:", import.meta.env.VITE_API_URL);
 export default function PredictSection() {
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -39,9 +42,9 @@ export default function PredictSection() {
 
     try {
       setLoading(true);
-
+      console.log("API URL:", API_URL);
       const res = await axios.post(
-        `http://127.0.0.1:8000/predict?model=${selectedModel}`,
+        `${API_URL}/predict?model=${selectedModel}`,
         formData
       );
 

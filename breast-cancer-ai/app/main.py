@@ -49,7 +49,7 @@ def home():
 #
 @app.post("/predict")
 async def predict(file: UploadFile = File(...), model: str = "default"):
-    print("🚀 API HIT")
+    print(" API HIT")
 
     file_path = f"temp_{file.filename}"
 
@@ -57,7 +57,7 @@ async def predict(file: UploadFile = File(...), model: str = "default"):
     with open(file_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
 
-    print("📂 File saved")
+    print(" File saved")
 
     
     #  VALIDATION PIPELINE
@@ -81,7 +81,7 @@ async def predict(file: UploadFile = File(...), model: str = "default"):
     # DEFAULT MODE
     
     if model == "default":
-        print("🧠 Using default (ResNet)")
+        print(" Using default (ResNet)")
 
         result = predict_image(file_path, "resnet")
 
@@ -108,7 +108,7 @@ async def predict(file: UploadFile = File(...), model: str = "default"):
     #  ADVANCED MODE (ALL MODELS)
     #
     elif model == "advanced":
-        print("🔥 Running ALL models")
+        print("Running ALL models")
 
         results = predict_all_models(file_path)
 
@@ -149,7 +149,8 @@ async def predict(file: UploadFile = File(...), model: str = "default"):
         )
 
         os.remove(file_path)
-
+        BASE_URL = "https://breast-cancer-detection-shqf.onrender.com" or "http://127.0.0.1:8000"
+    
         return {
             "mode": "advanced",
             "results": results,
@@ -160,14 +161,14 @@ async def predict(file: UploadFile = File(...), model: str = "default"):
             "risk_level": risk,
             "insight": insight,
             "confidence_note": confidence_note,
-            "pdf": f"http://127.0.0.1:8000/{pdf_path}"
+            "pdf": f"{BASE_URL}/{pdf_path}"
         }
 
    
     #  SPECIFIC MODEL
   
     else:
-        print(f"🧠 Using model: {model}")
+        print(f" Using model: {model}")
 
         result = predict_image(file_path, model)
 
